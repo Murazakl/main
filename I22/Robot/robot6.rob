@@ -1,0 +1,23 @@
+obj0 reacteur 1 11 1 75 obj16 0 0 0 -1 -1 505 265 est
+obj1 reacteur 1 13 0 96 obj18 0 0 0 -1 -1 45 265 ouest
+obj2 reacteur 1 15 0 -1 -1 0 0 0 -1 -1 285 140 nord
+obj3 reacteur 1 17 0 46 obj10 0 0 0 -1 -1 285 140 sud
+obj4 radar 0 0 0 -1 -1 1 19 0 52 obj12 440 310 est
+obj5 radar 0 0 0 -1 -1 1 23 0 122 obj23 110 220 ouest
+obj6 radar 0 0 0 -1 -1 1 27 0 104 obj20 320 190 nord
+obj7 radar 0 0 0 -1 -1 1 31 0 93 obj18 230 330 sud
+obj8 not 1 35 0 87 obj17 1 38 1 68 obj15 416 294 sud
+obj9 and 2 39 0 107 obj20 40 0 88 obj17 1 42 0 57 obj13 339 295 sud
+obj10 or 2 43 0 60 obj13 44 0 55 obj12 1 46 0 17 obj3 359 356 sud
+obj12 node 1 52 0 19 obj4 2 54 0 85 obj17 55 0 44 obj10 410 348 sud
+obj13 node 1 57 0 42 obj9 2 59 0 72 obj16 60 0 43 obj10 293 344 sud
+obj14 and 2 64 1 113 obj21 65 0 71 obj15 1 67 0 132 obj25 351 187 sud
+obj15 and 2 68 1 38 obj8 69 0 95 obj18 1 71 0 65 obj14 226 236 sud
+obj16 or 2 72 0 59 obj13 73 1 135 obj25 1 75 1 11 obj0 456 256 sud
+obj17 node 1 85 0 54 obj12 2 87 0 35 obj8 88 0 40 obj9 379 326 sud
+obj18 node 1 93 0 31 obj7 2 95 0 69 obj15 96 0 13 obj1 197 327 sud
+obj19 not 1 99 0 106 obj20 1 102 1 110 obj21 264 254 sud
+obj20 node 1 104 0 27 obj6 2 106 0 99 obj19 107 0 39 obj9 311 225 sud
+obj21 and 2 110 1 102 obj19 111 1 125 obj23 1 113 1 64 obj14 231 160 sud
+obj23 not 1 122 0 23 obj5 1 125 1 111 obj21 117 248 sud
+obj25 not 1 132 0 67 obj14 1 135 1 73 obj16 411 203 sud
