@@ -1,0 +1,2 @@
+def generateurs(p):
+    pass
