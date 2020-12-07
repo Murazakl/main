@@ -26,12 +26,15 @@ int main ()
     // Calcul de la racine primitive
     mpz_sqrt(g, p);
     gmp_printf("\nRacine primitive g = %Zd\n\n", g);
-    // generation de deux nombres aleatoires inferieurs à p
-    mpz_urandomm ( a , r , p ) ;
-    mpz_urandomm ( b , r , p ) ;
+    // Codes des personnes présentes
+    gmp_printf("Les prochains nombres demandés devront être inférieur à p !\n\n");
+    gmp_printf("Nombre d'Alice: ");
+    gmp_scanf("%Zd", &a);
+    gmp_printf("Nombre de Bob: ");
+    gmp_scanf("%Zd", &b);
     // Calcul des clés avec exponentiation modulaire
     mpz_powm ( A , g , a , p ) ;
-    gmp_printf ( "Alice envoie %Zd à Bob\n\n" , A ) ;
+    gmp_printf ( "\n\nAlice envoie %Zd à Bob\n\n" , A ) ;
     mpz_powm ( B , g , b , p ) ;
     gmp_printf ( "Bob envoie %Zd à Alice\n\n" , B ) ;
     mpz_powm ( Ka , B , a , p ) ;
@@ -40,4 +43,6 @@ int main ()
     gmp_printf ( "Clé secrète de Bob , Kb = %Zd\n\n" , Kb ) ;
     if (Ka == Kb);
         printf("Les clés sont identiques\n");
+    mpz_clears ( a ,b ,A ,B ,Ka ,Kb ,p ,g ,NULL);
+    gmp_randclear ( r ) ;
 }
