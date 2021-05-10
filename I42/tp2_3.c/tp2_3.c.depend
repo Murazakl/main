@@ -1,9 +1,0 @@
-# depslib dependency file v1.0
-1619015289 source:/home/etudiants/yeschberg261/I42/tp2_3.c/main.c
-	<stdio.h>
-	<unistd.h>
-	<sys/types.h>
-	<sys/stat.h>
-	<fcntl.h>
-	<stdlib.h>
-
