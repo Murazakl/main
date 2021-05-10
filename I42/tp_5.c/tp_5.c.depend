@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1619014947 source:/home/etudiants/yeschberg261/I42/tp_5.c/main.c
+	<unistd.h>
+	<stdlib.h>
+	<stdio.h>
+	<sys/types.h>
+	<sys/wait.h>
+
