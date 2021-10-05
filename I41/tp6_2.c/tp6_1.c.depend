@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1617091182 source:/home/etudiants/yeschberg261/I23/I41/tp6_1.c/main.c
+	<stdio.h>
+	<stdlib.h>
+
+1617708808 source:/home/etudiants/yeschberg261/I23/I41/tp6_2.c/main.c
+	<stdio.h>
+	<stdlib.h>
+

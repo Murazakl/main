@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1616488282 source:/home/etudiants/yeschberg261/I23/I41/tp5_1.c/main.c
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+

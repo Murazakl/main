@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1616496077 source:/home/etudiants/yeschberg261/I23/I41/tp5_3.c/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

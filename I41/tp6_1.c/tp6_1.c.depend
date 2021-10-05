@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1617715417 source:/home/etudiants/yeschberg261/I23/I41/tp6_1.c/main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
