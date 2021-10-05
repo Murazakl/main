@@ -127,7 +127,7 @@ def generateurs(p):  # question 10
 
 def generateur(p):  # question 11
 	g = randrange(2,p-1)
-	while (pow(g,(p-1)//2,p) != 1):
+	while (pow(g,(p-1)//2,p) == 1):
 		g = randrange(2,p-1)
 	return g
 
