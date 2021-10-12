@@ -83,3 +83,35 @@ INSERT INTO Cours VALUES (8, 'slow'), (9, 'chachacha');
 INSERT INTO Intervenant VALUES (8, 'Quentin');
 
 INSERT INTO Atelier VALUES (9, 5);
+
+
+CREATE TABLE Emplacement (
+  numE INT PRIMARY KEY NOT NULL,
+  surface INT NOT NULL,
+  nbPersMax INT NOT NULL,
+  typeEmpl VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Sport (
+  nomS VARCHAR(100) PRIMARY KEY NOT NULL,
+  Tarif VARCHAR(100) NOT NULL,
+  Valeur INT NOT NULL,
+  Unite VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Sejour (
+  num INT PRIMARY KEY NOT NULL,
+  nomClient VARCHAR(100) NOT NULL,
+  DebSejour VARCHAR(100) NOT NULL,
+  FinSejour VARCHAR(100) NOT NULL,
+  nbPers INT NOT NULL,
+  numE INT REFERENCES Emplacement(numE)
+);
+
+CREATE TABLE Location (
+  num INT REFERENCES Sejour(num),
+  nomS VARCHAR(100) REFERENCES Sport(nomS),
+  nbreUnites INT NOT NULL
+);
+
+
