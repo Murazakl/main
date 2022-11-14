@@ -1,0 +1,68 @@
+Sujet: Les plus longues sous-séquences communes.
+
+Lisez attentivement les explications.
+
+On note Σ* l'ensemble (infini) des mots définis sur un alphabet fini Σ, on note . la concaténation des mots et ε le mot vide, élément neutre pour cette loi. On dit qu'un mot u est un préfixe d'un mot v si et seulement s'il existe un mot w tel que u.w = v (si w ≠ ε, le préfixe est strict). Si un mot u ≠ ε, on note u' le plus long préfixe strict de u et ε' = ε.
+
+Soit u et v deux mots de Σ* de longueurs respectives n et m. On dit que u est une sous-séquence de v si et seulement si n ≤ m et s'il existe une application croissante j:[1,n] →[1,m] telle que ∀i∈[1,n]   ui = vj(i).
+
+Soit u et v deux mots sur Σ. Un mot w sur Σ est une plus longue sous-séquence commune de u et v, (PLSC en abrégé), si w est une sous-séquence de u et de v et qu'aucune autre PLSC de u et v n'est de longueur strictement supérieure. On note Λ(u,v) la longueur d'une plus longue sous-séquence commune de u et v.
+
+Exemples : Soit Σ := {a,b,…,z} l'alphabet latin. Le mot u = bon est un préfixe strict du mot bonjour et u' = bo. Le mot v = babc est une sous-séquence du mot u = abcabac. Il faut noter qu'il peut y avoir plusieurs applications croissantes j qui déterminent une même sous-séquence. Les mots u := algorithme et v := larme ont les mots arme (algorithme) et lrme (algorithme) comme plus longues sous-séquences communes. On a donc Λ(algorithme, larme) = 4.
+
+(1) Dans un  premier temps, l'objectif est de déterminer quelle est la longueur Λ(u, v) des plus longues sous-séquences communes de deux mots u et v de longueurs respectives n et m. Pour cela, on peut démontrer que
+
+Λ(u, v) = 0  si u = ε ou v = ε.
+Λ(u, v) = 1 + Λ(u', v') si un  =  vm.
+Λ(u, v) = max{Λ(u', v), Λ(u, v')} sinon.
+Pour calculer Λ(u, v), il suffit de connaître les trois quantités Λ(u', v), Λ(u, v') et Λ(u', v'). En notant u[i] := u1 u2 … ui et u[0] le mot vide ε, on peut alors construire itérativement une table L [i, j] de taille (n + 1) (m + 1) définie par
+L [i, j] :=  Λ(u[i], v[j])   pour (i,j) ∈ [0, n]×[0, m].
+
+Par exemple, avec les mots u =algorithme et v =larme :
+
+ L |  ε  l  a  r  m  e
+---|------------------    
+ ε |  0  0  0  0  0  0
+ a |  0  0  1  1  1  1
+ l |  0  1  1  1  1  1
+ g |  0  1  1  1  1  1
+ o |  0  1  1  1  1  1
+ r |  0  1  1  2  2  2
+ i |  0  1  1  2  2  2
+ t |  0  1  1  2  2  2
+ h |  0  1  1  2  2  2
+ m |  0  1  1  2  3  3
+ e |  0  1  1  2  3  4
+La construction de L se fait dans l'ordre de lecture et pour i > 0 et j > 0, le terme L[i, j] ne dépend que des termes L[i - 1, j], L[i, j - 1] et L[i - 1, j - 1].
+
+(2) Dans un deuxième temps, on cherche à construire une PLSC. Il suffit alors de partir de la case de coordonnées (i, j) := (n, m) de la table L puis d'allez sur la case qui contient la valeur maximale des cases à gauche (i,  j - 1) et au-dessus (i - 1,  j) (au choix si les deux contiennent la même valeur), sauf si ui = vj auquel cas w ← ui.w et on remonte en (i - 1, j - 1). On recommence ce processus jusqu'à arriver à la ligne ou la colonne 0, le mot w est une PLSC de u et v.
+
+Sauvegardez le fichier PLSC.c Ce fichier source contient des déclarations de types, de variables de fonctions pré­dé­fi­nies commentées, dont certaines sont à compléter et font l'objet de ce contrôle. Ne modifiez pas les noms des variables, types, fonctions, etc.
+
+Une fois ces fonctions complétées et le programme compilé par la commande
+
+$ gcc -o PLSC PLSC.c -Wall
+L'appel
+$ ./PLSC algorithme larme 
+affichera (par exemple):
+ L |  ε  l  a  r  m  e
+---|------------------    
+ ε |  0  0  0  0  0  0
+ a |  0  0  1  1  1  1
+ l |  0  1  1  1  1  1
+ g |  0  1  1  1  1  1
+ o |  0  1  1  1  1  1
+ r |  0  1  1  2  2  2
+ i |  0  1  1  2  2  2
+ t |  0  1  1  2  2  2
+ h |  0  1  1  2  2  2
+ m |  0  1  1  2  3  3
+ e |  0  1  1  2  3  4
+
+ PLSC = arme
+Question 1 [+1] Complétez la fonction uint len(tmot mot) qui renvoie la longueur de la chaîne de caractère mot.
+Indication : on rappelle qu'une chaîne se termine par le caractère '\0'.
+Question 2 [+2] Complétez la fonction uchar EstPrefixe(tmot u, tmot v) qui renvoie 1 ou 0 selon que u est un préfixe de v ou non. Cette fonction est indépendante du problème général.
+Question 3 [+6] Complétez la fonction uchar EstSousSeq(tmot u, tmot v) qui renvoie 1 ou 0 selon que u est une sous-séquence de v ou non. Cette fonction est indépendante du problème général.
+Question 4 [+6] Complétez la fonction uint **LPLSC(tmot u, tmot v) qui renvoie la table L des longueurs des PLSC des préfixes des mots u et v passés en paramètres.
+Question 5 [+6] Complétez la fonction tmot PLSC(tmot u, tmot v) qui renvoie une PLSC (quelconque) des mots u et v.
