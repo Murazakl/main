@@ -1,0 +1,19 @@
+Algo Gauss pour matrice a coefficient
+
+d = 1
+s = 1
+p = 1
+j = 1
+Tant que j <= n-1
+  i = j
+  Tant que i <= n et a[i][j] == 0
+    i += 1
+  Si i > n alors return 0
+  Si i > j alors 
+    echange L[i] et L[j]
+    s = -s
+  d = d * a[j][j]
+  Pour i = j+1 à n
+    L[i] = a[j][j] * L[i] - a[i][j] * L[j]
+    p = p * a[j][j]
+d = (d * a[n][n] * s) / p
