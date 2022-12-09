@@ -17,3 +17,15 @@ Tant que j <= n-1
     L[i] = a[j][j] * L[i] - a[i][j] * L[j]
     p = p * a[j][j]
 d = (d * a[n][n] * s) / p
+
+
+Algo de construction (matrice echelonne): 
+
+  Etape 1:
+    On cherche la 1er colonne qui contient un element non nul. Notons c l'indice de cette colonne. Dans cette colonne, on cherche la position i du 1er element non nul.
+    Si i+1 on permute les lignes.
+    On applique alors la transformation de Gauss pour mettre dans la colonne c des 0 sous le 1er element de la colonne.
+            qlq soit i >= 2 L[i] = L[i] - (a[i][c] / a[1][c]) * L[1]
+     
+    Supprimer la ligne 1 et la colonne 1 de la matrice courante, ceci donne une matrice à p-1 lignes et n-1 colonnes. On repete l'etape 1 sur cette nouvelle matrice
+    et on s'arrete quand le nombres de lignes vaut 1 ou le nombres de colonnes vaut 0.
