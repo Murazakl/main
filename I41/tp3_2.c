@@ -2,26 +2,35 @@
 #include <stdlib.h>
 #include <string.h>
 
+void Affiche_Liste(int *liste, ushort n);
 void TriSelection(int *liste, ushort n);
 
 int main(){
-  int n;
-  int i;
+  int n, i;
   printf("Nombres d'entiers que vous voulez triez: ");
   scanf("%d",&n);
-  int liste[n];
+
+  int *liste = (int*)malloc(sizeof(int) * n);
   printf("\n");
+
   for (i=0; i < n; i++){
-    printf("Donner l'entier %d: ", i+1);
+    printf("Donner l'entier %d: ", i);
     scanf("%d", &liste[i]);
   }
+
+  Affiche_Liste(liste,n);
   TriSelection(liste,n);
-  for(i=0; i < n; i++)
-    printf("%3d", liste[i]);
-  printf("\n\n");
+  Affiche_Liste(liste,n);
+
   return 0;
 }
 
+void Affiche_Liste(int *liste, ushort n)
+{
+  for(int i = 0; i < n-1; i++)
+    printf("%3d", liste[i]);
+  printf("\n\n");
+}
 
 void TriSelection(int *liste, ushort n){
   int i, j, tmp, min;
