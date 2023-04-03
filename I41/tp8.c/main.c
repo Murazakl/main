@@ -1,77 +1,122 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
+typedef unsigned int uint;
 
 typedef struct {
-    uint n;
-    int *values;
-}   t_liste;
+  uint n;        // longueur de la liste
+  int *valeurs;
+} tliste;
 
-void Copier(t_liste X, uint i, t_liste Y, uint j, uint n)
+int *genperm(uint n)
 {
-    int k = 0;
-    while (k < n)
-    {
-        Y.values[j+k] = X.values[i+k];
-        k++;
-    }
-}
-
-void Fusionner(t_liste L, uint p, uint q, uint r)
-{
-    int i, j, k, ng = q-p, nd = r-q;
-    t_liste G = {ng, malloc(ng * sizeof(int))};
-    t_liste D = {nd, malloc(nd * sizeof(int))};
-
-    Copier(L, p, G, 0, ng);
-    Copier(L, q, D, 0, nd);
-
-    i = 0;
-    j = 0;
-    k = p;
-
-    while ((i < ng && j < nd))
-    {
-        if (G.values[i] <= D.values[j])
-            L.values[k] = G.values[i++];
-        else
-            L.values[k] = D.values[j++];
-        k++;
-    }
-
-    free(G.values);
-    free(D.values);
-}
-
-void TriFusion(t_liste L, uint p, uint r)
-{
-    uint q;
-
-    if (p < r)
-    {
-        q = (p+r) / 2;
-        TriFusion(L, p, q);
-        TriFusion(L, q+1, r);
-        Fusionner(L, p, q, r);
-    }
-}
-
-
-
-int main(int argc, char *argv)
-{
-    int n = 10;
-    int valuesA[] = {1,4,6,8,9,0,2,3,5,7};
-    int *valuesB = malloc(n * sizeof(int));
-
-    t_liste listA = {n, valuesA};
-    t_liste listB = {n, valuesB};
-
-    TriFusion(listA, 0, 10);
-
-    for(int i=0; i < n;i++)
-        printf("%3d", valuesA[i]);
+    int *perm = (int*)malloc(n * sizeof(int));
+    for(int i = 0; i < n; i++)
+        perm[i] = i+1;
     printf("\n");
+    for(int i = 0; i<n; i++)
+    {
+        int index = rand() % n;
+        int tmp = perm[i];
+        perm[i] = perm[index];
+        perm[index] = tmp;
+    }
+    return perm;
+}
 
+void Fusionner(tliste arr, int l, int m, int r, uint *cpt) 
+{
+    int n1 = m - l + 1;
+    int n2 = r - m;
+ 
+    tliste G = {n1, (int*)malloc(sizeof(int) * n1)};
+    tliste D = {n2, (int*)malloc(sizeof(int) * n2)};
+ 
+    for (int i = 0; i < n1; i++)
+        G.valeurs[i] = arr.valeurs[l + i];
+    for (int j = 0; j < n2; j++)
+        D.valeurs[j] = arr.valeurs[m + 1 + j];
+ 
+    int i = 0, j = 0, k = l;
+ 
+    while (i < n1 && j < n2) 
+    {
+        if (G.valeurs[i] <= D.valeurs[j]) 
+        {
+            arr.valeurs[k] = G.valeurs[i];
+            i++;
+        }
+        else 
+        {
+            arr.valeurs[k] = D.valeurs[j];
+            j++;
+        }
+        k++;
+        *cpt += 1;
+    }
+ 
+    while (i < n1) 
+    {
+        arr.valeurs[k] = G.valeurs[i];
+        i++;
+        k++;
+    }
+ 
+    while (j < n2) 
+    {
+        arr.valeurs[k] = D.valeurs[j];
+        j++;
+        k++;
+    }
+
+    free(G.valeurs);
+    free(D.valeurs);
+}
+ 
+void TriFusion(tliste arr, int l, int r, uint *cpt) 
+{
+    if (l < r) 
+    {
+        int m = l + (r - l) / 2;
+ 
+        TriFusion(arr, l, m, cpt);
+        TriFusion(arr, m + 1, r, cpt);
+ 
+        Fusionner(arr, l, m, r, cpt);
+    }
+}
+ 
+int main(int argc, char *argv[]) 
+{
+    srand(time(NULL));
+    uint nbr = atoi(argv[1]);
+
+    FILE *f1 = fopen("./graph.txt", "w+");
+    FILE *f2 = fopen("./graph_log.txt", "w+");
+
+    if (f1 != NULL && f2 != NULL)
+    {
+        for (int i = 1; i <= nbr; i++)
+        {
+            int *perm = genperm(i);
+            uint *cpt = calloc(1, sizeof(uint));
+            tliste A =  {i, perm};
+
+            TriFusion(A, 0, i-1, cpt);
+
+            fprintf(f1, "%d %d\n", i, *cpt);
+            fprintf(f2, "%d %f\n", i, i * log(i));
+
+            free(perm);
+            free(cpt);
+        }
+        fclose(f1);
+        fclose(f2);
+    }
+
+    system("gnuplot -persist -e \"plot './graph.txt' with lines linewidth 1.5, './graph_log.txt' with lines linewidth 1.5\"");
 
     return 0;
 }
